@@ -1,7 +1,7 @@
 <!-- <div class="panel"></div> -->
 <div nz-col>
   <div style="min-height:50px" nz-row nzType="flex" nzJustify="center" nzAlign="middle">
-    <button nz-button nzType="dashed" class="bold gradient no-border white" (click)="randomizeTeam()">Randomize
+    <button nz-button nzType="dashed" class="bold" (click)="randomizeTeam()">Randomize
       Teams</button>
   </div>
 </div>
@@ -41,12 +41,11 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<section>
-  <div class="mt-5 pt-5">
-    <button nz-button nzType="primary" class="bold gradient no-border" [routerLink]="['/game-board']">Let's
-      Play</button>
+    <section>
+      <div class="margin">
+        <button nz-button nzType="primary" class="bold gradient no-border margin" [routerLink]="['/game-board']">Let's
+          Play</button>
+      </div>
+    </section>
   </div>
 </section>

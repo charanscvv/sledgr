@@ -6,15 +6,27 @@ import { Injectable } from '@angular/core';
 export class SharedService {
 
   totalOvers = null;
-  inningsData = [];
+  currentInnings = {
+    wicketsDown: 0,
+    totalScore: null,
+    ballsLeft: 0,
+    extras: 0,
+    crr: 0,
+    rrr: 0,
+    inningsData: []
+  };
+  targetScore = 0;
   preMatchPanelFlag = true;
   selectedOverNo: any;
   selectedBallNo: any;
-  totalScore = 0;
   activeOver = 0;
   batFirstTeam: any;
   innings = 0;
   currentBattingTeam = '';
+  matchData = {
+    teamA: {},
+    teamB: {}
+  }
 
   totalInningsData = {
     teamA: [],

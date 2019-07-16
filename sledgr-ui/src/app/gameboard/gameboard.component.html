@@ -2,6 +2,10 @@
   <div nz-row nzType="flex" nzJustify="space-around">
     <div *ngIf="sharedService.preMatchPanelFlag" nz-col nzType="flex">
       <div class="margin">
+        <h2 class="gradient-text">Enough is Enough!</h2>
+        <h4 class="gradient-text">Let's Begin the match.</h4>
+      </div>
+      <div class="margin">
         <input nz-input placeholder="Select Total Overs" type="number" [(ngModel)]="sharedService.totalOvers" />
       </div>
       <div>
@@ -12,16 +16,56 @@
         </nz-select>
       </div>
       <button [disabled]="!(sharedService.totalOvers && sharedService.batFirstTeam)" nz-button nzType="primary"
-        class="bold gradient no-border margin" (click)="setInningsData()">Start
+        [ngClass]="{'gradient': (sharedService.totalOvers && sharedService.batFirstTeam)}"
+        class="bold  no-border margin" style="  float: right;" (click)="setInningsData()">Start
         Match</button>
     </div>
 
     <div *ngIf="!sharedService.preMatchPanelFlag" class="gameboard">
       <div>
-        <h3 style="display:block !important; text-align: center">Total Score : {{sharedService.totalScore}}</h3>
-        <nz-tag class="margin" [nzColor]="'#87d068'">{{sharedService.currentBattingTeam}}</nz-tag>
+        <div class="score-board margin padding" nz-col nzType="flex" nzJustify="center">
+          <nz-tag class="margin" style="float: right; font-size:18px; padding: 4px 8px; margin: 11px;"
+            [nzColor]="'#87d068'" class="bold">
+            {{sharedService.currentBattingTeam}}</nz-tag>
+          <div class="margin white">
+            <h2 class="white">Total Score:
+              <span>
+                <nz-tag [nzColor]="'green'" class="bold" style="font-size: 20px;padding: 5px 10px;">
+                  {{sharedService.currentInnings.totalScore}}/{{sharedService.currentInnings.wicketsDown}}</nz-tag>
+              </span></h2>
+          </div>
+          <div class="margin" *ngIf="sharedService.innings == 2">
+            <h3 class="white">Target:
+              <span>
+                <nz-tag [nzColor]="'green'"> {{sharedService.targetScore}}</nz-tag>
+              </span><span>
+                <small style="font-size: 12px;padding-left:10px" *ngIf="sharedService.innings == 2" class="white">Need
+                  <span class="bold">
+                    {{sharedService.targetScore - sharedService.currentInnings.totalScore}}</span> in <span
+                    class="bold">{{this.sharedService.currentInnings.ballsLeft}} balls.</span></small>
+              </span></h3>
+
+          </div>
+          <div nz-row nzType="flex">
+            <div class="margin" nzSpan="12">
+              <h4 class="white">CRR:
+                <span>
+                  <nz-tag [nzColor]="'#87d068'">{{sharedService.currentInnings.crr}}</nz-tag>
+                </span></h4>
+            </div>
+            <div class="margin" nzSpan="12">
+              <h4 *ngIf="sharedService.innings == 2" class="white">RRR:
+                <span>
+                  <nz-tag [nzColor]="'#87d068'">{{sharedService.currentInnings.rrr}}</nz-tag>
+                </span></h4>
+            </div>
+          </div>
+
+
+        </div>
+
       </div>
-      <div *ngFor="let over of sharedService.inningsData;  let overNo = index">
+      <div *ngFor="let over of sharedService.currentInnings.inningsData;  let overNo = index">
         <div [ngClass]="{'disabled-over': sharedService.activeOver !== overNo}" class="over">
           <div nz-row nzType="flex" nzJustify="space-between">
             <div>
@@ -35,7 +79,8 @@
             (click)="sharedService.selectedOverNo = overNo; sharedService.selectedBallNo = ballNo"
             [nzContent]="contentTemplate"
             [ngClass]="{'boundary': (ball == 4 || ball == 6), 'extra' : (ball == 'N' || ball== '↔'), 'out': ball === 'W'}">
-            <span class="delivery">{{ball || '║'}}</span></i>
+            <span *ngIf="ball" class="delivery">{{ball}}</span><span class="no-delivery" *ngIf="!ball"><i
+                class="fas fa-grip-lines-vertical"></i></span></i>
         </div>
       </div>
     </div>
@@ -59,6 +104,12 @@
     <div class="point boundary" nz-col nzSpan="7" (click)="setScore(6)">6</div>
     <div class="point extra" nz-col nzSpan="7" (click)="setScore('↔', true)">WIDE</div>
     <div class="point extra" nz-col nzSpan="7" (click)="setScore('N', true)">NOB</div>
-    <div class="point out" nz-col nzSpan="7" (click)="setScore('W')">OUT</div>
+    <div class="point out" nz-col nzSpan="7" (click)="setScore('W');showOut = true;">OUT</div>
+    <!-- <div *ngIf="showOut" class="point out" nz-col nzSpan="7"
+      (click)="setScore('W+1'); showOut = false;">
+      +1</div>
+    <div *ngIf="showOut" class="point out" nz-col nzSpan="7"
+      (click)="setScore('W+2'); showOut = false;">
+      +2</div> -->
   </div>
 </ng-template>

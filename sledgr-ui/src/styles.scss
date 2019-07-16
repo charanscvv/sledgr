@@ -23,6 +23,11 @@ body{
     background: linear-gradient(to bottom left, green, rgb(0, 184, 0));
   }
 }
+.gradient-text{
+  background: -webkit-linear-gradient( green, rgb(0, 168, 0));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 
 .footer{
   height: 45px !important;
@@ -95,12 +100,19 @@ body{
 .delivery{
   font-family: monospace;
   font-size: 18px;
-  margin-left: -19px;
+  margin-left: -20px;
   margin-right: +19px;
-  vertical-align: 5px;
+  vertical-align: 4px;
   font-weight: bold;
 }
+.no-delivery{
+  font-size: 22px;
+  margin-left: -19.5px;
+  margin-right: +19px;
+  vertical-align: 2.5px;
+}
 .run{
+  color: #a60000;
   & span{
  color:#ffffff;
   }
@@ -127,6 +139,12 @@ body{
   & span{
     color: #ffffff;
   }
+}
+
+.score-board{
+  min-height: 20px;
+  background: linear-gradient(to bottom right, green, rgb(0, 184, 0));
+  border-radius: 5px;
 }
 .selector{
   min-width:250px;
