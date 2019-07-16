@@ -1,0 +1,52 @@
+<!-- <div class="panel"></div> -->
+<div nz-col>
+  <div style="min-height:50px" nz-row nzType="flex" nzJustify="center" nzAlign="middle">
+    <button nz-button nzType="dashed" class="bold gradient no-border white" (click)="randomizeTeam()">Randomize
+      Teams</button>
+  </div>
+</div>
+
+<!-- <p class="bold center">Swaps left : {{swapLimit - swapCount}}</p> -->
+<section nz-row nzType="flex" nzJustify="center">
+  <div *ngIf="teamsMade" style="width:500px" nz-row nzType="flex" nzJustify="space-around">
+    <div class="team-panel" nz-col nzSpan="12">
+      <div nz-row nzType="flex" nzJustify="center" class="team white bold gradient">
+        Team A
+      </div>
+      <div>
+        <div class="team-list bold pointer" nz-row nzType="flex" nzJustify="space-between" *ngFor="let player of teamA">
+          <div>
+            <i nz-icon type="delete" theme="outline" (click)="deletePlayerTeamA(player)"></i>
+          </div>
+          <div>{{player.playerName}}</div>
+          <div>
+            <i nz-icon type="double-right" theme="outline" (click)="moveToTeamB(player)"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="team-panel" nz-col nzSpan="12">
+      <div nz-row nzType="flex" nzJustify="center" class="team white bold gradient">
+        Team B
+      </div>
+      <div>
+        <div class="team-list bold pointer" nz-row nzType="flex" nzJustify="space-between" *ngFor="let player of teamB">
+          <div>
+            <i nz-icon type="double-left" theme="outline" (click)="moveToTeamA(player)"></i>
+          </div>
+          <div>{{player.playerName}}</div>
+          <div>
+            <i nz-icon type="delete" theme="outline" (click)="deletePlayerTeamB(player)"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="mt-5 pt-5">
+    <button nz-button nzType="primary" class="bold gradient no-border" [routerLink]="['/game-board']">Let's
+      Play</button>
+  </div>
+</section>

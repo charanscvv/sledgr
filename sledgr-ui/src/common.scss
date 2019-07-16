@@ -1,0 +1,47 @@
+.bold{
+  font-weight: 700;
+  &div{
+    font-weight: 700;
+  }
+  &input{
+    font-weight: 700;
+  }
+}
+.light-bold{
+  font-weight: 600;
+}
+.gray{
+  color: $gray;
+}
+
+.white{
+  color: white;
+}
+
+.break-word{
+  word-wrap: break-word;
+}
+
+.border-bottom{
+  border-bottom: 0.5px solid $gray !important;
+}
+
+label{
+  margin-bottom:0px !important;  
+}
+
+.margin{
+  margin: 10px;
+}
+
+.padding{
+  padding: 5px;
+}
+.pointer{
+  cursor: pointer !important;
+}
+
+.no-border{
+  border: none !important;
+  border-color: none !important;
+}

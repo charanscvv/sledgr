@@ -1,0 +1,163 @@
+
+// Application Specific Classes
+@import 'custom-variables';
+@import 'common';
+
+body{
+  margin:0px !important;
+  padding:0px !important;
+}
+.header{
+  height: 50px !important;
+}
+.logo{
+  border-radius: 50px;
+  margin: 4px;
+}
+.gradient{
+  background: linear-gradient(to bottom right, green, rgb(0, 184, 0));
+  transition-property: background;
+  transition-duration: 1s;
+  transition-timing-function: linear;
+  &:hover{
+    background: linear-gradient(to bottom left, green, rgb(0, 184, 0));
+  }
+}
+
+.footer{
+  height: 45px !important;
+}
+
+.full-height{
+  min-height:100vh !important;
+}
+
+.panel{
+  transform: skewX(0deg) skewY(5deg);
+  background: rgba(0, 163, 0, 0.336);
+  margin-top: -100px;
+  height: 400px;
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  z-index: -1;
+}
+
+//Buttons
+.primary-btn{
+  background: $primary-color;
+  color:$white;
+  &:hover{
+    color:$white;
+  }
+}
+
+//Dashboard
+.player-name{
+  min-height: 50px;
+  background: #00ad00;
+  max-width: 200px;
+  border-radius: 6px;
+  box-shadow: 1px 2px 5px 0px #737373;
+  color:white;
+  font-size:18px;
+}
+.center{
+  text-align:center; 
+}
+.team-panel{
+  padding-right:3px;
+  padding-left:3px;
+}
+.team{
+  min-height: 20px;
+  padding:10px;
+  margin-top:2px;
+  margin-bottom:2px;
+  border-radius: 5px;
+}
+.team-list{
+  background: #4ce00047;
+    min-height: 20px;
+    padding: 8px;
+    margin-top:2px;
+    margin-bottom:2px;
+    border-radius: 5px;
+}
+
+.over{
+  background-color: #4ce00047;
+  border-radius: 6px;
+  padding:10px 20px;
+  margin:5px;
+  vertical-align:middle;
+}
+.delivery{
+  font-family: monospace;
+  font-size: 18px;
+  margin-left: -19px;
+  margin-right: +19px;
+  vertical-align: 5px;
+  font-weight: bold;
+}
+.run{
+  & span{
+ color:#ffffff;
+  }
+}
+.dot{
+  & span{
+    color:#ffffff;
+  }
+}
+.boundary{
+  color:#0059ff;
+  & span{
+    color: #ffffff;
+  }
+}
+.extra{
+  color:#ffb72f;
+  & span{
+    color: #ffffff;
+  }
+}
+.out{
+  color:#eb0000;
+  & span{
+    color: #ffffff;
+  }
+}
+.selector{
+  min-width:250px;
+  & .boundary{
+    background: #0059ff !important;
+    color:white
+  }
+  & .extra{
+    background: #e99700 !important;
+    color:white
+  }
+  & .out{
+    background: #eb0000 !important;
+    color:white
+  }
+}
+.point{
+  background: #d9f5d9;
+    line-height: 50px;
+    text-align: center;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.disabled-over{
+  pointer-events: none;
+  background: #8080802e;
+}
+
+.pad{
+  padding: 5px 8px;
+}

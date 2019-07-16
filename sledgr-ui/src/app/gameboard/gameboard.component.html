@@ -1,0 +1,64 @@
+<section nz-row nzType="flex" nzJustify="center">
+  <div nz-row nzType="flex" nzJustify="space-around">
+    <div *ngIf="sharedService.preMatchPanelFlag" nz-col nzType="flex">
+      <div class="margin">
+        <input nz-input placeholder="Select Total Overs" type="number" [(ngModel)]="sharedService.totalOvers" />
+      </div>
+      <div>
+        <nz-select style="width: 300px;" class="margin" [(ngModel)]="sharedService.batFirstTeam" nzAllowClear
+          nzPlaceHolder="Who's batting first?">
+          <nz-option nzValue="Team A" nzLabel="Team A"></nz-option>
+          <nz-option nzValue="Team B" nzLabel="Team B"></nz-option>
+        </nz-select>
+      </div>
+      <button [disabled]="!(sharedService.totalOvers && sharedService.batFirstTeam)" nz-button nzType="primary"
+        class="bold gradient no-border margin" (click)="setInningsData()">Start
+        Match</button>
+    </div>
+
+    <div *ngIf="!sharedService.preMatchPanelFlag" class="gameboard">
+      <div>
+        <h3 style="display:block !important; text-align: center">Total Score : {{sharedService.totalScore}}</h3>
+        <nz-tag class="margin" [nzColor]="'#87d068'">{{sharedService.currentBattingTeam}}</nz-tag>
+      </div>
+      <div *ngFor="let over of sharedService.inningsData;  let overNo = index">
+        <div [ngClass]="{'disabled-over': sharedService.activeOver !== overNo}" class="over">
+          <div nz-row nzType="flex" nzJustify="space-between">
+            <div>
+              <p class="bold">Over {{overNo + 1}}</p>
+            </div>
+            <div><i *ngIf="sharedService.activeOver === overNo" class="far fa-check-circle" (click)="updateOver()"></i>
+            </div>
+          </div>
+          <i *ngFor="let ball of over; let ballNo = index" class="fas fa-circle fa-2x pad run pointer" nz-popover
+            nzTrigger="click" nzTitle="Record Delivery"
+            (click)="sharedService.selectedOverNo = overNo; sharedService.selectedBallNo = ballNo"
+            [nzContent]="contentTemplate"
+            [ngClass]="{'boundary': (ball == 4 || ball == 6), 'extra' : (ball == 'N' || ball== '↔'), 'out': ball === 'W'}">
+            <span class="delivery">{{ball || '║'}}</span></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!sharedService.preMatchPanelFlag" nz-row nzType="flex">
+    <button *ngIf="sharedService.innings == 1 && sharedService.activeOver > sharedService.totalOvers - 1 " nz-button
+      nzType="dashed" class="bold margin" (click)="changeInnings()">Next Innings</button>
+    <button nz-button nzType="dashed" class="bold margin" [routerLink]="['/match-stats']">View
+      Stats</button>
+  </div>
+</section>
+
+
+<ng-template #contentTemplate>
+  <div nz-row class="selector">
+    <div class="point" nz-col nzSpan="7" (click)="setScore(1)">1</div>
+    <div class="point" nz-col nzSpan="7" (click)="setScore(2)">2</div>
+    <div class="point" nz-col nzSpan="7" (click)="setScore(3)">3</div>
+    <div class="point boundary" nz-col nzSpan="7" (click)="setScore(4)">4</div>
+    <div class="point" nz-col nzSpan="7" (click)="setScore('•')">•</div>
+    <div class="point boundary" nz-col nzSpan="7" (click)="setScore(6)">6</div>
+    <div class="point extra" nz-col nzSpan="7" (click)="setScore('↔', true)">WIDE</div>
+    <div class="point extra" nz-col nzSpan="7" (click)="setScore('N', true)">NOB</div>
+    <div class="point out" nz-col nzSpan="7" (click)="setScore('W')">OUT</div>
+  </div>
+</ng-template>
