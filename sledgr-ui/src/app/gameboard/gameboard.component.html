@@ -82,8 +82,8 @@
               [nzContent]="contentTemplate"
               [ngClass]="{'boundary': (ball == 4 || ball == 6), 'extra' : (ball == 'N' || ball== '↔'), 'out': ball === 'W'}">
               <span *ngIf="ball && ball!=='↔'" class="delivery">{{ball}}</span><span class="no-delivery"
-                *ngIf="!ball"><i class="fas fa-grip-lines-vertical"></i></span><span class="no-delivery" style="margin-left: -5px;
-                margin-right: -5px;" *ngIf="ball=='↔'"><i class="fas fa-arrows-alt-h"></i></span></i>
+                *ngIf="!ball"><i class="fas fa-grip-lines-vertical"></i></span><span class="wide-delivery"
+                *ngIf="ball=='↔'"><i class="fas fa-arrows-alt-h"></i></span></i>
           </div>
         </div>
       </div>
