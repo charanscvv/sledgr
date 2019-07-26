@@ -50,13 +50,13 @@
             <div class="margin" nzSpan="12">
               <h4 class="white">CRR:
                 <span>
-                  <nz-tag [nzColor]="'#87d068'">{{sharedService.currentInnings.crr}}</nz-tag>
+                  <nz-tag [nzColor]="'#87d068'">{{sharedService.currentInnings.crr || 0}}</nz-tag>
                 </span></h4>
             </div>
             <div class="margin" nzSpan="12">
               <h4 *ngIf="sharedService.innings == 2" class="white">RRR:
                 <span>
-                  <nz-tag [nzColor]="'#87d068'">{{sharedService.currentInnings.rrr}}</nz-tag>
+                  <nz-tag [nzColor]="'#87d068'">{{sharedService.currentInnings.rrr || 0}}</nz-tag>
                 </span></h4>
             </div>
           </div>
@@ -65,22 +65,26 @@
         </div>
 
       </div>
-      <div *ngFor="let over of sharedService.currentInnings.inningsData;  let overNo = index">
-        <div [ngClass]="{'disabled-over': sharedService.activeOver !== overNo}" class="over">
-          <div nz-row nzType="flex" nzJustify="space-between">
-            <div>
-              <p class="bold">Over {{overNo + 1}}</p>
+      <div [ngClass]="{'ball-board-1': sharedService.innings == 1, 'ball-board-2': sharedService.innings == 2}">
+        <div *ngFor="let over of sharedService.currentInnings.inningsData;  let overNo = index">
+          <div [ngClass]="{'disabled-over': sharedService.activeOver !== overNo}" class="over">
+            <div nz-row nzType="flex" nzJustify="space-between">
+              <div>
+                <p class="bold">Over {{overNo + 1}}</p>
+              </div>
+              <div><i *ngIf="sharedService.activeOver === overNo" class="far fa-check-circle"
+                  (click)="updateOver()"></i>
+              </div>
             </div>
-            <div><i *ngIf="sharedService.activeOver === overNo" class="far fa-check-circle" (click)="updateOver()"></i>
-            </div>
+            <i *ngFor="let ball of over; let ballNo = index" class="fas fa-circle fa-2x pad run pointer" nz-popover
+              nzTrigger="click" nzTitle="Record Delivery"
+              (click)="sharedService.selectedOverNo = overNo; sharedService.selectedBallNo = ballNo"
+              [nzContent]="contentTemplate"
+              [ngClass]="{'boundary': (ball == 4 || ball == 6), 'extra' : (ball == 'N' || ball== '↔'), 'out': ball === 'W'}">
+              <span *ngIf="ball && ball!=='↔'" class="delivery">{{ball}}</span><span class="no-delivery"
+                *ngIf="!ball"><i class="fas fa-grip-lines-vertical"></i></span><span class="no-delivery" style="margin-left: -5px;
+                margin-right: -5px;" *ngIf="ball=='↔'"><i class="fas fa-arrows-alt-h"></i></span></i>
           </div>
-          <i *ngFor="let ball of over; let ballNo = index" class="fas fa-circle fa-2x pad run pointer" nz-popover
-            nzTrigger="click" nzTitle="Record Delivery"
-            (click)="sharedService.selectedOverNo = overNo; sharedService.selectedBallNo = ballNo"
-            [nzContent]="contentTemplate"
-            [ngClass]="{'boundary': (ball == 4 || ball == 6), 'extra' : (ball == 'N' || ball== '↔'), 'out': ball === 'W'}">
-            <span *ngIf="ball" class="delivery">{{ball}}</span><span class="no-delivery" *ngIf="!ball"><i
-                class="fas fa-grip-lines-vertical"></i></span></i>
         </div>
       </div>
     </div>

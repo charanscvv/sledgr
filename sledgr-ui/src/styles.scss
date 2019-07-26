@@ -145,7 +145,18 @@ body{
   min-height: 20px;
   background: linear-gradient(to bottom right, green, rgb(0, 184, 0));
   border-radius: 5px;
+  position: fixed;
+  margin-left: -6px;
+  width: 95%;
 }
+.ball-board-2{
+  margin-top: 170px;
+}
+.ball-board-1{
+  margin-top: 135px;
+}
+
+
 .selector{
   min-width:250px;
   & .boundary{
